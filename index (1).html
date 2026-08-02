@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ARENA CLASH — PvP 5 Players</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== MÀN HÌNH ĐĂNG NHẬP / TẠO PHÒNG ===================== -->
+<div id="screen-login" class="screen active">
+  <div class="panel">
+    <h1 class="logo">ARENA <span>CLASH</span></h1>
+    <p class="subtitle">PvP đối kháng — tối đa 5 người chơi</p>
+
+    <input id="input-name" type="text" maxlength="12" placeholder="Nhập tên của bạn">
+    <input id="input-room" type="text" maxlength="10" placeholder="Mã phòng (vd: ABC123)">
+
+    <div class="btn-row">
+      <button id="btn-create-room" class="btn btn-primary">Tạo phòng mới</button>
+      <button id="btn-join-room" class="btn btn-secondary">Vào phòng</button>
+    </div>
+    <p id="login-error" class="error-text"></p>
+  </div>
+</div>
+
+<!-- ===================== MÀN HÌNH CHỌN NHÂN VẬT ===================== -->
+<div id="screen-select" class="screen">
+  <div class="panel panel-wide">
+    <h2 class="section-title">Chọn nhân vật</h2>
+    <div class="char-grid">
+      <div class="char-card" data-char="hacanh">
+        <div class="char-portrait hacanh"></div>
+        <h3>Hắc Ảnh</h3>
+        <p class="char-role">Sát thủ ẩn thân</p>
+        <ul class="char-skills">
+          <li><b>Đánh thường:</b> Ném dao găm</li>
+          <li><b>Q — Ảnh Trảm:</b> Lao xuyên qua địch, gây sát thương</li>
+          <li><b>E — Ẩn Tung:</b> Tàng hình 2s, đòn tiếp theo chí mạng</li>
+          <li><b>R — Đoạt Hồn:</b> Dịch chuyển ra sau lưng mục tiêu, chém liên hoàn</li>
+        </ul>
+      </div>
+      <div class="char-card" data-char="doclinh">
+        <div class="char-portrait doclinh"></div>
+        <h3>Độc Hành Kiếm Khách</h3>
+        <p class="char-role">Kiếm sĩ cận chiến</p>
+        <ul class="char-skills">
+          <li><b>Đánh thường:</b> Chém cận chiến hình quạt</li>
+          <li><b>Q — Phá Phong:</b> Lao đâm theo đường thẳng</li>
+          <li><b>E — Cuồng Vũ:</b> Xoay kiếm gây sát thương diện rộng quanh thân</li>
+          <li><b>R — Tuyệt Mệnh Kiếm:</b> Liên hoàn lao chém, hút máu</li>
+        </ul>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button id="btn-ready" class="btn btn-primary" disabled>Sẵn sàng</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MÀN HÌNH PHÒNG CHỜ ===================== -->
+<div id="screen-lobby" class="screen">
+  <div class="panel">
+    <h2 class="section-title">Phòng: <span id="lobby-room-code"></span></h2>
+    <p class="subtitle">Chia sẻ mã phòng để bạn bè cùng vào (tối đa 5 người)</p>
+    <ul id="lobby-player-list" class="lobby-list"></ul>
+    <div class="btn-row">
+      <button id="btn-start-game" class="btn btn-primary">Bắt đầu trận đấu</button>
+    </div>
+    <p class="hint-text">Bất kỳ ai trong phòng cũng có thể bấm bắt đầu khi mọi người đã sẵn sàng.</p>
+  </div>
+</div>
+
+<!-- ===================== MÀN HÌNH GAME ===================== -->
+<div id="screen-game" class="screen">
+  <div id="hud-top">
+    <div id="kill-target">Đạt <b>5 hạ gục</b> để thắng</div>
+    <div id="scoreboard"></div>
+  </div>
+  <canvas id="game-canvas"></canvas>
+  <div id="hud-bottom">
+    <div class="hp-bar-wrap">
+      <div id="hp-bar-fill"></div>
+      <span id="hp-bar-text"></span>
+    </div>
+    <div class="skill-bar">
+      <div class="skill-slot" id="slot-basic"><span>LMB</span></div>
+      <div class="skill-slot" id="slot-q"><span>Q</span></div>
+      <div class="skill-slot" id="slot-e"><span>E</span></div>
+      <div class="skill-slot" id="slot-r"><span>R</span></div>
+    </div>
+  </div>
+  <div id="killfeed"></div>
+
+  <!-- Điều khiển cảm ứng (chỉ hiện trên thiết bị mobile) -->
+  <div id="joystick-base">
+    <div id="joystick-knob"></div>
+  </div>
+  <div id="mobile-actions">
+    <button id="btn-mobile-e" class="mobile-btn">E</button>
+    <button id="btn-mobile-q" class="mobile-btn">Q</button>
+    <button id="btn-mobile-r" class="mobile-btn r-btn">R</button>
+    <button id="btn-mobile-basic" class="mobile-btn basic-btn">Đánh</button>
+  </div>
+</div>
+
+<!-- ===================== MÀN HÌNH KẾT THÚC ===================== -->
+<div id="screen-end" class="screen">
+  <div class="panel">
+    <h2 class="section-title" id="end-title">Kết thúc trận đấu</h2>
+    <ul id="end-scoreboard" class="lobby-list"></ul>
+    <div class="btn-row">
+      <button id="btn-back-lobby" class="btn btn-primary">Về phòng chờ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK (compat build, dễ dùng không cần bundler) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+
+<script src="firebase-config.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

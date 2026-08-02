@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Be+Vietnam+Pro:wght@400;500;700&display=swap');
+
+:root{
+  --bg-deep: #0d0b16;
+  --bg-panel: #16132455;
+  --violet: #7c5cff;
+  --violet-dim: #4a3a8f;
+  --ember: #ff6a3d;
+  --cyan: #35e8c9;
+  --text-main: #eae7f7;
+  --text-dim: #9b95b8;
+  --danger: #ff4d6d;
+}
+
+*{ box-sizing: border-box; margin:0; padding:0; }
+
+body{
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: radial-gradient(circle at 20% 20%, #201a3a 0%, var(--bg-deep) 55%);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.screen{
+  display:none;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+}
+.screen.active{ display:flex; }
+
+.panel{
+  background: linear-gradient(180deg, #1b1730cc, #120f22cc);
+  border: 1px solid #38315e;
+  border-radius: 18px;
+  padding: 36px 40px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 20px 60px #00000080, inset 0 1px 0 #ffffff0d;
+  backdrop-filter: blur(6px);
+}
+.panel-wide{ max-width: 780px; }
+
+.logo{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-align:center;
+  color: var(--text-main);
+  text-shadow: 0 0 24px #7c5cff88;
+}
+.logo span{ color: var(--ember); text-shadow: 0 0 24px #ff6a3d88; }
+
+.subtitle{ text-align:center; color: var(--text-dim); margin: 8px 0 26px; font-size: 0.92rem;}
+
+.section-title{
+  font-family:'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+.section-title span{ color: var(--cyan); }
+
+input[type="text"]{
+  width:100%;
+  padding: 13px 16px;
+  margin-bottom: 14px;
+  background: #0d0b1a;
+  border: 1px solid #3a3260;
+  border-radius: 10px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  outline:none;
+  transition: border-color .15s;
+}
+input[type="text"]:focus{ border-color: var(--violet); }
+
+.btn-row{ display:flex; gap:12px; margin-top: 18px; }
+.btn{
+  flex:1;
+  padding: 13px 18px;
+  border-radius: 10px;
+  border:none;
+  font-weight:700;
+  font-size: 0.92rem;
+  cursor:pointer;
+  letter-spacing: .3px;
+  transition: transform .12s, box-shadow .12s, opacity .12s;
+}
+.btn:active{ transform: scale(0.97); }
+.btn:disabled{ opacity:.4; cursor:not-allowed; }
+.btn-primary{ background: linear-gradient(135deg, var(--violet), #a58bff); color:#100c22; box-shadow: 0 8px 24px #7c5cff44; }
+.btn-secondary{ background:#221d3c; color: var(--text-main); border:1px solid #453a78; }
+
+.error-text{ color: var(--danger); font-size:.85rem; margin-top:10px; text-align:center; min-height: 1em; }
+.hint-text{ color: var(--text-dim); font-size:.8rem; text-align:center; margin-top:14px; }
+
+/* ---------- Character select ---------- */
+.char-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:18px; margin: 10px 0 8px; }
+.char-card{
+  background:#120f22;
+  border:2px solid #322a54;
+  border-radius:14px;
+  padding:16px;
+  cursor:pointer;
+  transition: border-color .15s, transform .15s;
+}
+.char-card:hover{ transform: translateY(-3px); }
+.char-card.selected{ border-color: var(--ember); box-shadow: 0 0 26px #ff6a3d3d; }
+
+.char-portrait{
+  width:100%; height:110px; border-radius:10px; margin-bottom:10px;
+  background-size:cover; background-position:center;
+}
+.char-portrait.hacanh{ background: linear-gradient(160deg, #1a1430, #4a2f6e 60%, #7c5cff); }
+.char-portrait.doclinh{ background: linear-gradient(160deg, #241608, #7a3a12 60%, #ff6a3d); }
+
+.char-card h3{ font-family:'Orbitron',sans-serif; font-size:1rem; margin-bottom:2px; }
+.char-role{ color: var(--cyan); font-size:.78rem; margin-bottom:10px; }
+.char-skills{ list-style:none; font-size:.78rem; color: var(--text-dim); line-height:1.55; }
+.char-skills b{ color: var(--text-main); }
+
+/* ---------- Lobby ---------- */
+.lobby-list{ list-style:none; margin: 14px 0; }
+.lobby-list li{
+  display:flex; justify-content:space-between; align-items:center;
+  background:#150f27; border:1px solid #322a54; border-radius:10px;
+  padding:10px 14px; margin-bottom:8px; font-size:.9rem;
+}
+.lobby-list li .tag{ font-size:.72rem; color: var(--cyan); }
+
+/* ---------- Game screen ---------- */
+#screen-game{ padding:0; position:relative; width:100%; height:100vh; display:flex; align-items:center; justify-content:center; }
+#game-canvas{
+  background:#0a0815; display:block; touch-action:none; cursor:crosshair;
+  width:100%; height:auto; max-width:900px; max-height:100vh; aspect-ratio: 900 / 560;
+}
+
+/* ---------- Điều khiển cảm ứng (mobile) ---------- */
+#joystick-base, #mobile-actions{ display:none; }
+
+body.touch-mode #joystick-base{
+  display:block; position:fixed; left:22px; bottom:22px; z-index:20;
+  width:110px; height:110px; border-radius:50%;
+  background:#00000055; border:2px solid #ffffff30; touch-action:none;
+}
+body.touch-mode #joystick-knob{
+  position:absolute; top:50%; left:50%; width:48px; height:48px; margin:-24px 0 0 -24px;
+  border-radius:50%; background:#7c5cffcc; border:2px solid #ffffff80;
+  transition: transform .03s linear;
+}
+body.touch-mode #mobile-actions{
+  display:grid; position:fixed; right:18px; bottom:18px; z-index:20;
+  grid-template-columns: 54px 54px; grid-template-rows: 54px 54px 64px;
+  gap:10px; align-items:end; justify-items:center;
+}
+body.touch-mode .mobile-btn{
+  width:54px; height:54px; border-radius:50%; border:2px solid #ffffff40;
+  background:#1a1428cc; color:#fff; font-family:'Orbitron',sans-serif; font-weight:700;
+  font-size:.85rem; touch-action:none; -webkit-tap-highlight-color: transparent;
+}
+body.touch-mode .mobile-btn:active{ background:#7c5cffaa; }
+body.touch-mode #btn-mobile-q{ grid-column:1; grid-row:2; }
+body.touch-mode #btn-mobile-e{ grid-column:2; grid-row:1; }
+body.touch-mode .r-btn{ grid-column:1; grid-row:1; background:#ff6a3dcc; }
+body.touch-mode .basic-btn{
+  grid-column: span 2; grid-row:3; width:64px; height:64px; font-size:.8rem; background:#35e8c9cc; color:#0a0815;
+}
+
+/* trên mobile: ẩn thanh skill/desktop, đưa hp bar lên góc để không đè joystick */
+body.touch-mode .skill-bar{ display:none; }
+body.touch-mode #hud-bottom{ align-items:flex-start; padding-bottom: 150px; }
+body.touch-mode .hp-bar-wrap{ position:fixed; top:14px; left:14px; z-index:15; }
+
+#hud-top{
+  position:absolute; top:0; left:0; right:0; z-index:5;
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding: 14px 20px; pointer-events:none;
+}
+#kill-target{
+  background:#00000070; padding:8px 14px; border-radius:10px; font-size:.85rem;
+  border:1px solid #ffffff20;
+}
+#scoreboard{ display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
+.score-row{ background:#00000070; padding:5px 12px; border-radius:8px; font-size:.78rem; min-width:150px; display:flex; justify-content:space-between; gap:12px; border:1px solid #ffffff15;}
+.score-row.me{ border-color: var(--ember); }
+
+#hud-bottom{
+  position:absolute; bottom:0; left:0; right:0; z-index:5;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  padding: 18px 24px; pointer-events:none;
+}
+.hp-bar-wrap{
+  width:220px; height:26px; background:#1a1428; border-radius:8px; overflow:hidden;
+  border:1px solid #ffffff25; position:relative;
+}
+#hp-bar-fill{ height:100%; background: linear-gradient(90deg, #ff4d6d, #ff8a5c); width:100%; transition: width .15s; }
+#hp-bar-text{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700;}
+
+.skill-bar{ display:flex; gap:10px; pointer-events:none; }
+.skill-slot{
+  width:54px; height:54px; border-radius:12px; background:#1a1428cc;
+  border:2px solid #453a78; display:flex; align-items:center; justify-content:center;
+  font-family:'Orbitron',sans-serif; font-weight:700; font-size:.85rem;
+  position:relative; overflow:hidden;
+}
+.skill-slot.cooling::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; background:#00000099;
+  height: var(--cd, 0%); transition: height .1s linear;
+}
+.skill-slot .cd-num{ position:absolute; font-size:1rem; z-index:2; }
+
+#killfeed{
+  position:absolute; top:70px; right:20px; z-index:5;
+  display:flex; flex-direction:column; gap:6px; align-items:flex-end;
+}
+.kill-msg{
+  background:#000000a0; padding:6px 12px; border-radius:8px; font-size:.78rem;
+  border-left:3px solid var(--ember); animation: fadeout 4s forwards;
+}
+@keyframes fadeout{ 0%{opacity:1;} 75%{opacity:1;} 100%{opacity:0;} }
+
+@media (max-width: 640px){
+  .char-grid{ grid-template-columns: 1fr; }
+  .panel-wide{ max-width: 480px; }
+}
